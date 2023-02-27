@@ -59,11 +59,7 @@
 ### (3) 각 서버에 Utils 설치
 - wget, unzip, bzip2, net-tools 설치
     - `sudo apt install -y wget unzip bzip2 net-tools`
-    - wget : web get의 약어로, web 상의 파일을 다운로드 받을 때 사용
-    - unzip : zip으로 압축된 파일을 풀 때 사용
-    - bzip2 : 단일 파일을 .bzip2의 확장자로 압축 및 해제할 때 사용
-    - net-tools : ifconfig, router 등 네트워크 명령어 포함
-
+    
 <br/>
 
 ### (4) 각 서버에 Host Name 설정
