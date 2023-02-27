@@ -58,7 +58,6 @@
     - > {OS User Name} ALL=(ALL) NOPASSWD:ALL
 - 디렉토리 생성 및 신규 생성한 OS User로 소유자 변경
     - `sudo mkdir {Directory Name}`
-<<<<<<< HEAD
     - `sudo chown {Owner: OS User Name}:{Group: OS User Name} {Directory Name}`
 
 <br/>
@@ -89,6 +88,3 @@
 {Worker Node 2 Private IP} {Worker Node 2 Host Name}
 {Worker Node 3 Private IP} {Worker Node 3 Host Name}
 ```
-=======
-    - `sudo chown {Owner: OS User Name}:{Group: OS User Name} {Directory Name}`
->>>>>>> 7af296439f631527af180e7549cd89e4f1809422
