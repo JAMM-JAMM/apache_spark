@@ -21,7 +21,6 @@
 - [x] (3) 각 서버에 Utils 설치
 - [x] (4) 각 서버에 Host Name 설정
 - [x] (5) 각 서버 간 SSH Connection(w/o) 가능하도록 설정
-- [x] (6) Apache Spark 설치 및 실행
 
 <br/>
 
@@ -76,10 +75,26 @@
 - 서버 간 통신에 ip 대신 Host Name으로 통신할 수 있도록 구성
     - 각 서버 별로 Private IP 주소를 모두 확인
         - `ifconfig`
-    - Host Name으로 IP를 확인할 수 있도록 각 서버 별 아래와 동일한 내용으로 /etc/hosts 파일 편지
+    - Host Name으로 IP를 확인할 수 있도록 각 서버 별 아래와 동일한 내용으로 /etc/hosts 파일 편집
 ```text
 {Master Node Private IP} {Master Node Host Name}
 {Worker Node 1 Private IP} {Worker Node 1 Host Name}
 {Worker Node 2 Private IP} {Worker Node 2 Host Name}
 {Worker Node 3 Private IP} {Worker Node 3 Host Name}
 ```
+
+<br/>
+
+### (5) 각 서버 간 SSH Connection(w/o) 가능하도록 설정
+- 서버 간 Password 입력 없이 RSA Key 기반 SSH 연결하기 설정
+    - SSH Key Generate
+        - `ssh-keygen -t rsa -P '' -f ~/.ssh/{RSA Key File Name}`
+    - Public Key, Private Key Pair가 생성됨
+        - > {RSA Key File Name}
+        - > {RSA Key File Name}.pub
+    - Authorized Keys 구성
+        - Key 기반 서버 인증을 위해 인가(Authorized)된 Key 파일 구성
+        - Server 자체적으로도 SSH 접속을 허용하도록 Public Key 내용으로 Authorized Keys 파일 구성
+        - 다른 Server의 SSH 접속을 허용하기 위해 다른 Server의 Public Key를 복사하여, Authorized Keys 파일에 붙여넣기
+        - Authorized Keys 파일은 SSH 접근을 허용하는 서버의 Public Key 내용을 저장하는 아주 중요한 File이기 때문에 동일 서버 내 다른 OS User가 읽을 수 없도록 파일 권한 변경
+            - `chmod 600 {Authorized Keys File Path}`
