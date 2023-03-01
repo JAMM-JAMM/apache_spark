@@ -1,4 +1,4 @@
-# Install Hadoop on Master Node
+# Install Hadoop on Master Node and Worker Node
 
 ## Hadoop Tarball Install
 - Version : hadoop 3.3.3 binary
@@ -32,8 +32,14 @@ $ vi /{base_dir}/hadoop3/etc/hadoop/core-site.xml
         <name>fs.defaultFS</name>
         <value>hdfs://{Master Host Name}:9000/</value>
     </property>
+    <!-- static user -->
+    <property>
+        <name>hadoop.http.staticuser.user</name>
+        <value>{OS User Name}</value>
+    </property>
 </configuration>
 ```
+- HDFS Web UI 및 HDFS CLI Command를 사용하여 File System에서 작업하기 위해 staticuser 추가
 
 <br/>
 
