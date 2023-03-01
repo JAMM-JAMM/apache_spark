@@ -60,7 +60,9 @@ $ ./bin/spark-shell
 <br/>
 
 ![../images/image2.png](../images/image2.png)
-- Driver의 Web UI를 확인하기 위해서 4040 port 방화벽 오픈
+- sc.master에 대한 return을 보면 local[*]로 반환함
+    - 이는 Spark Standalone Cluster Manager를 구성한 것이 아닌 단순히 Spark Shell을 실행하여 Spark Local 환경을 구성한 것
+- Local Spark Shell의 application Web UI를 확인하기 위해서 4040 port 방화벽 오픈
     - AWS EC2의 Security Group의 Inbound Rule 편집
 
 ![../images/image4.png](../images/image4.png)
