@@ -168,3 +168,46 @@ $ ./bin/spark-shell --master spark://{Master Host Name}:{SPARK_MASTER_PORT} --ex
 ![../images/image16.png](../images/image16.png)
 
 ![../images/image17.png](../images/image17.png)
+
+<br/>
+
+- 앞서 Spark Master Server Web UI와 Spark Application Web UI에서 확인했던 것 처럼 각각의 Worker Server에 할당된 Executor가 'CoarseGrainedExecutorBackend'로 2개씩 프로세스가 실행중인 것을 확인할 수 있다.
+
+<br/>
+
+### spark-env.sh 수정을 통한 할당할 total core 제한
+
+<br/>
+
+```bash
+$ vi /{base_dir}/spark3/conf/spark-env.sh
+```
+```text
+JAVA_HOME=/{base_dir}/jdk8
+SPARK_MASTER_PORT=****  # default: 7077
+SPARK_MASTER_WEBUI_PORT=****  # default: 8080
+SPARK_WORKER_PORT=****  # default: random
+SPARK_WORKER_WEBUI_PORT=****  # default: 8081
+SPARK_WORKER_CORES=8  # default: all available
+SPARK_WORKER_MEMORY=8G  # default: machine's total RAM minus 1 GiB
+SPARK_PUBLIC_DNS=${HOSTNAME}
+SPARK_MASTER_OPTS="-Dspark.deploy.defaultCores=5" # total core w/o --total-executor-cores
+```
+
+```bash
+$ scp -r /{base_dir}/spark3 {OS User Name}@{Worker 1 Host Name}:/{base_dir}
+$ scp -r /{base_dir}/spark3 {OS User Name}@{Worker 2 Host Name}:/{base_dir}
+$ scp -r /{base_dir}/spark3 {OS User Name}@{Worker 3 Host Name}:/{base_dir}
+```
+```bash
+$ /{base_dir}/spark3/sbin/stop-all.sh
+$ /{base_dir}/spark3/sbin/start-all.sh
+```
+
+```bash
+$ ./bin/spark-shell --master spark://{Master Host Name}:{SPARK_MASTER_PORT}
+```
+
+![../images/image18.png](../images/image18.png)
+
+- spark-env.sh에서 '-Dspark.deploy.defaultCores=5'로 주었기 때문에 2개의 Worker Server에는 Executor가 2개의 core를 가지고 있지만 나머지 하나의 Worker Server의 Executor에는 1개의 Core가 할당된다.
